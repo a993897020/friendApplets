@@ -1,0 +1,87 @@
+/* pages/friendMoment/index.wxss */
+page{
+    padding-bottom:120rpx ;
+}
+.list{
+    padding:0 30rpx;
+}
+.stopScroll{
+    overflow: hidden;
+    height: 100vh;
+}
+.item{
+padding-bottom: 20rpx;
+border-bottom: 1px solid #ccc;
+margin-bottom: 20rpx;
+display: flex;
+}
+.item:last-child{
+    border: 0;
+}
+.text{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+image,video{
+    width: 150rpx;
+    height: 146rpx;
+    margin-top: 10rpx;
+    margin-right: 20rpx;
+}
+
+.goBtn{
+    width: 100%;
+    position: fixed;
+    bottom: 20rpx;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.login-box{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-box .login-wrap{
+    height: 300rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: 1px solid rgba(255, 255, 255, .5);
+    background-color: rgba(0, 0, 0, .8);
+    padding: 0 20rpx;
+    border-radius: 10rpx;
+}
+.login-box .login-wrap .login-tip{
+    color: #fff;
+}
+.user{
+    display: flex;
+}
+.user-avatar{
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 10rpx;
+}
+.user-name{
+    color: rgb(73, 125, 223);
+    font-size: 34rpx;
+    font-weight: 700;
+    margin-bottom: 5rpx;
+}
+.info{
+    margin-top: 20rpx;
+    flex:1;
+}
+.time{
+    margin-top: 10rpx;
+    font-size: 24rpx;
+    color: #666;
+}

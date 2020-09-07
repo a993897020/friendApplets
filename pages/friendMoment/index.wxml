@@ -1,0 +1,22 @@
+<!-- 利用云开发实现案例，朋友圈 -->
+<view class="list {{isLogin?'':'stopScroll'}}">
+    <view class="item" wx:for="{{blogList}}" wx:for-="index" wx:key="_id">
+        <image class="user-avatar" src="{{item.avatar}}"></image>
+        <view class="info">
+            <view class="user-name">{{item.nickName}}</view>
+        <view class="text">{{item.content}}</view>
+        <block wx:for="{{item.fileList}}" wx:for-item="u" wx:for-index="ui" wx:key="*this">
+        <image wx:if="{{u.type==='image'}}" src="{{u.tempFilePath}}" data-key="{{index}}" data-i="{{ui}}"  bindtap="preview" ></image>
+        <video wx:else controls="{{false}}"  show-center-play-btn="{{false}}" src="{{u.tempFilePath}}" data-key="{{index}}" data-i="{{ui}}"  bindtap="preview" ></video>
+        </block>
+        <view class="time">{{item.date}}</view>
+        </view>
+    </view>
+</view>
+<button class="goBtn" type="primary" bindtap="toLink">我要发朋友圈</button>
+<view class="login-box" wx:if="{{!isLogin}}">
+<view class="login-wrap">
+    <view class="login-tip">兄弟你好，需要点击按钮授权登录，即可。</view>
+<button class="login-btn" bindtap="loginLoading" type="primary" open-type="getUserInfo" bindgetuserinfo="login">点击授权登录</button>
+</view>
+</view>

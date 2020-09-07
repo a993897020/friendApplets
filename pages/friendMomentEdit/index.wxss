@@ -1,0 +1,52 @@
+/* pages/friendMomentEdit/index.wxss */
+.container{
+    padding: 20rpx;
+}
+.text{
+    height:200rpx;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20rpx;
+}
+.imageList{
+margin-top: 50rpx;
+display: flex;
+flex-wrap: wrap;
+}
+.imageItem{
+    width: 150rpx;
+    height: 146rpx;
+
+    position: relative;
+    margin-right: 26rpx;
+    margin-bottom: 30rpx;
+}
+image,video{
+    width: 100%;
+    height: 100%;
+}
+.imageDel{
+    position: absolute;
+    top: -16rpx;
+    right: -10rpx;
+    background-color: #000;
+    color: #fff;
+    border-radius: 50%;
+    width: 40rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    text-align: center;
+}
+.imageAdd{
+    height: 146rpx;
+    width: 150rpx;
+    background-color: #000;
+    color: #fff;
+    font-size: 120rpx;
+    line-height: 122rpx;
+    text-align: center;
+}
+button{
+    width: 100% !important;
+    margin-top: 50rpx;
+}

@@ -1,0 +1,12 @@
+<view class="container">
+    <textarea value="{{content}}" bindinput="handleInput" class="text" placeholder="输入内容"></textarea>
+<view class="imageList">
+    <view class="imageItem"  wx:for="{{fileList}}" wx:key="*this">
+        <image wx:if="{{item.type==='image'}}" src="{{item.tempFilePath}}"></image>
+        <video wx:else src="{{item.tempFilePath}}"></video>
+        <view class="imageDel" data-index="{{index}}" bindtap="fileDel">x</view>
+    </view>
+    <view class="imageAdd"  bindtap="uploadFile">+</view>
+</view>
+<button type="primary" size="default" bindtap="sendBlog">发布朋友圈</button>
+</view>

@@ -1,0 +1,4 @@
+/* pages/cloudSave/index.wxss */
+image,video{
+    width: 100%;
+}

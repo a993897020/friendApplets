@@ -1,0 +1,17 @@
+{
+  "pages":[
+    "pages/friendMoment/index",
+    "pages/friendMomentEdit/index",
+    "pages/cloudSave/index",
+    "pages/cloudFun/index",
+    "pages/index/index"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle":"black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

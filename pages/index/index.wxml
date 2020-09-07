@@ -1,0 +1,11 @@
+<view>客户端对数据库增删查改</view>
+<input placeholder="输入添加名称" bindinput="getName"></input>
+<input placeholder="输入添加年龄" bindinput="getAge"></input>
+<button bindtap="handleAdd">添加数据</button>
+<button bindtap="handleGet">查询数据</button>
+<input placeholder="输入更新id" bindinput="getId"></input>
+<input placeholder="输入更新名称" bindinput="getName"></input>
+<input placeholder="输入更新年龄" bindinput="getAge"></input>
+<button bindtap="handleSet">更新数据</button>
+<input placeholder="输入删除id" bindinput="getId"></input>
+<button bindtap="handleDelete">删除数据</button>

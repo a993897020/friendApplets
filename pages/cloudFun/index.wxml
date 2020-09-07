@@ -1,0 +1,4 @@
+<button bindtap="cloudSum">调用求和云函数</button>
+<button bindtap="getOpenId">获取OpenId</button>
+<button bindtap="getDatabase">从数据库获取数据</button>
+<button bindtap="getCloudData">云函数获取数据库数据</button>

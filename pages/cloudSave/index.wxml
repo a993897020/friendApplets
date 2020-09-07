@@ -1,0 +1,8 @@
+<button bindtap="uploadFile">上传文件到云存储</button>
+<button bindtap="downloadFile">下载并打开云存储文件</button>
+<button bindtap="uploadImg">上传图片到云存储</button>
+<image src="{{imgUrl}}"></image>
+<button bindtap="uploadVideo">上传视频到云存储</button>
+<video src="{{videoUrl}}"></video>
+
+
