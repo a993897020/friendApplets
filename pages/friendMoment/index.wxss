@@ -29,6 +29,7 @@ image,video{
     height: 146rpx;
     margin-top: 10rpx;
     margin-right: 20rpx;
+    position: relative;
 }
 
 .goBtn{
@@ -84,4 +85,16 @@ image,video{
     margin-top: 10rpx;
     font-size: 24rpx;
     color: #666;
+}
+.video-icon-wrap{
+    width: 30%;
+    height:30%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.video-icon-wrap .video-icon{
+    width: 100%;
+    height: 100%;
 }

@@ -9,6 +9,9 @@ Page({
         blogList:[],
         isLogin:true
     },
+    pageNum:1,
+    pageSize:5,
+    totalPage:0,
     /**
      * 点击跳转到发朋友圈
      */
@@ -18,7 +21,7 @@ Page({
         })
     },
     /**
-     * 点击放大图片
+     * 预览图片视频
      * @param {*} e 
      */
     preview(e){
@@ -26,7 +29,8 @@ Page({
         let sources=this.data.blogList[key].fileList.map(p=>({url:p.tempFilePath,type:p.type,poster:p.thumbTempFilePath}))
         wx.previewMedia({
             current: i, 
-            sources
+            sources,
+            
           })
     },
     /**
@@ -66,18 +70,21 @@ Page({
     /**
      * 获取数据
      */
-    getBlog(type){
-        type==='refresh'?'':wx.showLoading({title:'正在加载...'})
+    getBlog(){
+        const {pageSize,pageNum}=this
+        wx.showLoading({title:'正在加载...'})
        wx.cloud.callFunction({
            name:'getBlog',
+           data:{pageSize,pageNum},
            success:res=>{
                console.log(res)
-                let {result:{data}}=res
+                let {result:{data,totalPage}}=res
+                this.totalPage=totalPage
                 data.forEach(p=>p.date=timeago(new Date(p.date).getTime(),'Y年M月D日 h:m:s'))
                 this.setData({
-                    blogList:data
+                    blogList:[...this.data.blogList,...data]
                 })
-                type==='refresh'?'':wx.hideLoading()
+                wx.hideLoading()
                 wx.stopPullDownRefresh()
            },
            fail:err=>{
@@ -98,9 +105,26 @@ Page({
         this.setData({isLogin})
         this.getBlog()
     },
+    // 上拉刷新
     onPullDownRefresh(){
-        this.getBlog('refresh')
+        this.pageNum=1
+        this.setData({blogList:[]})
+        this.getBlog()
+    },
+    // 下拉加载
+    onReachBottom(){
+        console.log(this.totalPage)
+        if(this.pageNum===this.totalPage){
+            wx.showToast({
+                icon:'none',
+              title: '数据已经加载完了，亲！',
+            })
+            return
+        }
+        this.pageNum++
+        this.getBlog()
     }
+    
 
    
 })

@@ -7,7 +7,11 @@
         <view class="text">{{item.content}}</view>
         <block wx:for="{{item.fileList}}" wx:for-item="u" wx:for-index="ui" wx:key="*this">
         <image wx:if="{{u.type==='image'}}" src="{{u.tempFilePath}}" data-key="{{index}}" data-i="{{ui}}"  bindtap="preview" ></image>
-        <video wx:else controls="{{false}}"  show-center-play-btn="{{false}}" src="{{u.tempFilePath}}" data-key="{{index}}" data-i="{{ui}}"  bindtap="preview" ></video>
+        <video wx:else controls="{{false}}"  show-center-play-btn="{{false}}" src="{{u.tempFilePath}}" data-key="{{index}}" data-i="{{ui}}"  bindtap="preview" >
+            <cover-view class="video-icon-wrap">
+                <cover-image class="video-icon" src="../../image/play.png"></cover-image>
+            </cover-view>
+        </video>
         </block>
         <view class="time">{{item.date}}</view>
         </view>
