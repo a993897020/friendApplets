@@ -62,6 +62,7 @@ Page({
                 that.setData({isLogin})
                 user._id=res.result._id
                 wx.setStorageSync('userInfo', user)
+                this.getBlog()
             },
             fail:err=>{
                 isLogin=false
@@ -76,7 +77,7 @@ Page({
    async getBlog(){
         const {pageSize,pageNum}=this
         const params={pageSize,pageNum}
-        const uid=wx.getStorageSync('userInfo')._id
+        const uid=wx.getStorageSync('userInfo')._id||''
         wx.showLoading({title:'正在加载...'})
         const {result:{data,totalPage}}=await wx.cloud.callFunction({name:'getBlog',data:{...params}}) 
         const {result:goodList}=await wx.cloud.callFunction({name:'goodBlog',data:{type:'uidGoodList',uid}})
@@ -148,7 +149,6 @@ Page({
         console.log(userInfo)
         isLogin=JSON.stringify(userInfo)!=='{}'
         this.setData({isLogin})
-        this.getBlog()
     },
     // 上拉刷新
     onPullDownRefresh(){
