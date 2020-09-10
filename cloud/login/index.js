@@ -19,8 +19,9 @@ exports.main = async (event, context) => {
         }
     })
     let index=result.data.findIndex(p=>p.important.openId===OPENID)
+    // 避免重复添加数据库
     if(index===-1){
-        await cloud.database().collection('friendMomentUser').add({
+        let data=await cloud.database().collection('friendMomentUser').add({
             data:user,
             success:res=>{
                 return res
@@ -29,9 +30,9 @@ exports.main = async (event, context) => {
                 return err
             } 
          })
-         return {code:200,message:'登录成功'}
+         return {code:200,data,message:'登录成功'}
     }else{
-         return {code:200,message:'登录成功'}
+         return {code:200,_id:result.data[index]._id,message:'登录成功'}
     }
        
 }

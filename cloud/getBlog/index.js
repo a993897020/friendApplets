@@ -1,9 +1,7 @@
-// 云函数入口文件
 const cloud = require('wx-server-sdk')
 
 cloud.init()
 
-// 云函数入口函数
 /**
  * 分页查询文章
  * @param {*} event:pageSize,pageNum 
@@ -16,14 +14,17 @@ exports.main = async (event, context) => {
     const {total}=await cloud.database().collection('friendMoment').count()
     const totalPage=Math.ceil(total/pageSize)
     // skip()获取数据的起始位置
-    const {data}=await cloud.database().collection('friendMoment').skip(pageNum*pageSize).limit(pageSize).get({
-        success:res=>{
-            return res
-        },
-        fail:err=>{
-            return err
-        }
+    const {data}=await cloud.database().collection('friendMoment').skip(pageNum*pageSize).limit(pageSize).get()
+    // 获取每个文章的点赞数
+    const goodList=await cloud.database().collection('goodBlog').get()
+    data.forEach(o=>{
+        o.totalGood=0
+        goodList.data.forEach(p=>{
+            o.totalGood+=p.bid===o._id&&p.isGood?1:0
+        
+        })
     })
+    
     return {
         data,
         pageSize,

@@ -7,23 +7,11 @@ cloud.init({
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-
-    return cloud.database().collection('friendMoment').add({
-        data:event,
-        success:res=>{
-            return {
-                message:'添加成功！',
-                res
-            }
-        },
-        fail:err=>{
-            return {
-                message:'添加失败',
-                err
-            }
-        }
-    })
-
-    // return event
-    // cloud.database().collection('friendMoment').add({})
+    const data=event
+    try{
+    await cloud.database().collection('friendMoment').add({data})
+    return {code:1,msg:'ok'}
+    }catch(err){
+        return {code:0,msg:err}
+    }
 }

@@ -58,7 +58,6 @@ Page({
      */
     fileDel(e){
         let {index}=e.currentTarget.dataset
-        console.log(e)
         let {fileList}=this.data
         fileList.splice(index,1)
         this.setData({fileList})
@@ -84,9 +83,9 @@ Page({
           })
         if(fileList.length>0){
             fileList.forEach((p,i)=>{
-                console.log(i)
+                let type=p.type==='image'?'.jpg':'.mp4'
                 wx.cloud.uploadFile({
-                   cloudPath:new Date().getTime()+p.type,
+                   cloudPath:new Date().getTime()+type,
                    filePath:p.tempFilePath,
                    success:res=>{
                     p.tempFilePath=res.fileID

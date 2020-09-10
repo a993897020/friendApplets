@@ -3,11 +3,18 @@
     <view class="item" wx:for="{{blogList}}" wx:for-="index" wx:key="_id">
         <image class="user-avatar" src="{{item.avatar}}"></image>
         <view class="info">
+            <view class="info-head">
             <view class="user-name">{{item.nickName}}</view>
+                <div class="item-good">
+                    <image class="good-image" bindtap="handleGood" data-isGood="true" data-bid="{{item._id}}" wx:if="{{!item.isGood}}" mode="widthFix" src="../../image/bad.png"></image>
+                    <image class="good-image" bindtap="handleGood" data-isGood="false" data-bid="{{item._id}}" wx:else mode="widthFix" src="../../image/good.png"></image>
+                    <text class="good-num">{{item.totalGood}}</text>
+                </div>
+            </view>
         <view class="text">{{item.content}}</view>
         <block wx:for="{{item.fileList}}" wx:for-item="u" wx:for-index="ui" wx:key="*this">
         <image wx:if="{{u.type==='image'}}" src="{{u.tempFilePath}}" data-key="{{index}}" data-i="{{ui}}"  bindtap="preview" ></image>
-        <video wx:else controls="{{false}}"  show-center-play-btn="{{false}}" src="{{u.tempFilePath}}" data-key="{{index}}" data-i="{{ui}}"  bindtap="preview" >
+        <video title="小视频" wx:else controls="{{false}}"  show-center-play-btn="{{false}}" src="{{u.tempFilePath}}" data-key="{{index}}" data-i="{{ui}}"  bindtap="preview" >
             <cover-view class="video-icon-wrap">
                 <cover-image class="video-icon" src="../../image/play.png"></cover-image>
             </cover-view>
@@ -15,6 +22,7 @@
         </block>
         <view class="time">{{item.date}}</view>
         </view>
+        
     </view>
 </view>
 <button class="goBtn" type="primary" bindtap="toLink">我要发朋友圈</button>

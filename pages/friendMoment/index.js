@@ -30,7 +30,9 @@ Page({
         wx.previewMedia({
             current: i, 
             sources,
-            
+            success:res=>{
+                console.log(res)
+            }
           })
     },
     /**
@@ -58,6 +60,7 @@ Page({
                 wx.hideLoading()
                 isLogin=true
                 that.setData({isLogin})
+                user._id=res.result._id
                 wx.setStorageSync('userInfo', user)
             },
             fail:err=>{
@@ -70,32 +73,74 @@ Page({
     /**
      * 获取数据
      */
-    getBlog(){
+   async getBlog(){
         const {pageSize,pageNum}=this
+        const params={pageSize,pageNum}
+        const uid=wx.getStorageSync('userInfo')._id
         wx.showLoading({title:'正在加载...'})
-       wx.cloud.callFunction({
-           name:'getBlog',
-           data:{pageSize,pageNum},
-           success:res=>{
-               console.log(res)
-                let {result:{data,totalPage}}=res
-                this.totalPage=totalPage
-                data.forEach(p=>p.date=timeago(new Date(p.date).getTime(),'Y年M月D日 h:m:s'))
-                this.setData({
-                    blogList:[...this.data.blogList,...data]
-                })
-                wx.hideLoading()
-                wx.stopPullDownRefresh()
-           },
-           fail:err=>{
-               console.log(err)
-           }
-       }) 
+        const {result:{data,totalPage}}=await wx.cloud.callFunction({name:'getBlog',data:{...params}}) 
+        const {result:goodList}=await wx.cloud.callFunction({name:'goodBlog',data:{type:'uidGoodList',uid}})
+        this.formatData(data,totalPage,goodList)
+    },
+    /**
+     * 操作数据，方便渲染
+     * @param {*} data 
+     * @param {*} totalPage 
+     * @param {*} goodList 
+     */
+    formatData(data,totalPage,goodList){
+        console.log(goodList)
+        console.log(data)
+        this.totalPage=totalPage
+        data.forEach(p=>{
+            p.date=timeago(new Date(p.date).getTime(),'Y年M月D日 h:m:s')
+            p.isGood=false
+            goodList.data.forEach(o=>{
+                if(p._id===o.bid){
+                    p.isGood=o.isGood
+                }
+            })
+        })
+        
+        this.setData({
+            // blogList:[...this.data.blogList,...data]
+            blogList:this.data.blogList.concat(data)
+        })
+        wx.hideLoading()
+        wx.stopPullDownRefresh()
+    },
+    /**
+     * 点赞功能
+     * @param {*} e 
+     */
+    async handleGood(e){
+        const {isgood,bid}=e.target.dataset
+        const {nickName,avatarUrl,_id}=wx.getStorageSync('userInfo')
+        const data={
+            type:'good',
+            nickName,
+            avatar:avatarUrl,
+            isGood:isgood==='true',
+            createAt:new Date(),
+            bid,
+            uid:_id
+        }
+       let res= await wx.cloud.callFunction({name:'goodBlog',data})
+       console.log(res)
+        const blogList=this.data.blogList
+        blogList.forEach(p=>{
+            if(p._id===bid){
+                p.isGood=isgood==='true'
+                p.totalGood+=isgood==='true'?1:-1
+            }
+        })
+        this.setData({blogList})
     },
     /**
      * 生命周期函数--监听页面加载
      */
-    onShow: function () {
+   async onShow() {
+        
     },
     onLoad(){
         let {isLogin}=this.data
