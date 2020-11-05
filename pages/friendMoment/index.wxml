@@ -5,12 +5,17 @@
         <view class="info">
             <view class="info-head">
             <view class="user-name">{{item.nickName}}</view>
-                <div class="item-good">
-                    <view class="good-image iconfont icon-xin" style="color:{{item.isGood?'red':'#000000'}}" bindtap="handleGood" data-isGood="{{item.isGood}}" data-bid="{{item._id}}"></view>
+                <view class="item-good">
+                    <view 
+                    class="good-image iconfont icon-xin" 
+                    style="color:{{item.isGood?'red':'#000000'}}" 
+                    bindtap="handleGood" data-isGood="{{item.isGood}}" 
+                    data-bid="{{item._id}}">
+                    </view>
                     <!-- <image class="good-image" bindtap="handleGood" data-isGood="true" data-bid="{{item._id}}" wx:if="{{!item.isGood}}" mode="widthFix" src="../../image/bad.png"></image> -->
                     <!-- <image class="good-image" bindtap="handleGood" data-isGood="false" data-bid="{{item._id}}" wx:else mode="widthFix" src="../../image/good.png"></image> -->
                     <text class="good-num">{{item.totalGood}}</text>
-                </div>
+                </view>
             </view>
         <view class="text">{{item.content}}</view>
         <block wx:for="{{item.fileList}}" wx:for-item="u" wx:for-index="ui" wx:key="*this">
