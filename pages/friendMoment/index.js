@@ -7,7 +7,7 @@ Page({
      */
     data: {
         blogList:[],
-        isLogin:true
+        isLogin:false
     },
     pageNum:1,
     pageSize:5,
@@ -90,8 +90,6 @@ Page({
      * @param {*} goodList 
      */
     formatData(data,totalPage,goodList){
-        console.log(goodList)
-        console.log(data)
         this.totalPage=totalPage
         data.forEach(p=>{
             p.date=timeago(new Date(p.date).getTime(),'Y年M月D日 h:m:s')
@@ -121,7 +119,7 @@ Page({
             type:'good',
             nickName,
             avatar:avatarUrl,
-            isGood:isgood==='true',
+            isGood:!isgood,
             createAt:new Date(),
             bid,
             uid:_id
@@ -131,8 +129,8 @@ Page({
         const blogList=this.data.blogList
         blogList.forEach(p=>{
             if(p._id===bid){
-                p.isGood=isgood==='true'
-                p.totalGood+=isgood==='true'?1:-1
+                p.isGood=!isgood
+                p.totalGood+=!isgood?1:-1
             }
         })
         this.setData({blogList})
@@ -141,13 +139,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
    async onShow() {
-        
     },
     onLoad(){
         let {isLogin}=this.data
         let userInfo=wx.getStorageSync('userInfo')||{}
-        console.log(userInfo)
-        isLogin=JSON.stringify(userInfo)!=='{}'
+        isLogin=JSON.stringify(userInfo)!=='{}'&&userInfo._id
+        if(isLogin) this.getBlog()
         this.setData({isLogin})
     },
     // 上拉刷新

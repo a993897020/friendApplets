@@ -107,9 +107,11 @@ image,video{
 .item-good{
     margin-top: 20rpx;
     display: flex;
+    align-items: center;
 }
 .item-good .good-image{
-    width: 30rpx;
+    margin-right: 10rpx;
+    font-size: 28rpx;
 }
 .item-good .good-num{
 }
